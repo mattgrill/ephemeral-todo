@@ -61,7 +61,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -78,21 +78,30 @@ module.exports = require("mobx-react");
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("mobx");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom_server__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom_server__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom_server___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_dom_server__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mobx_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mobx_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mobx_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__browser_components_app__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__template__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_mobx__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_mobx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_mobx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__browser_components_app__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__template__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__store__ = __webpack_require__(8);
+
 
 
 
@@ -108,13 +117,14 @@ const server = __WEBPACK_IMPORTED_MODULE_0_express___default()();
 server.use(__WEBPACK_IMPORTED_MODULE_0_express___default.a.static('public'));
 
 server.get('/', (req, res) => {
-  res.send(Object(__WEBPACK_IMPORTED_MODULE_5__template__["a" /* default */])({
+  res.send(Object(__WEBPACK_IMPORTED_MODULE_6__template__["a" /* default */])({
     body: Object(__WEBPACK_IMPORTED_MODULE_2_react_dom_server__["renderToString"])(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_3_mobx_react__["Provider"],
-      { store: __WEBPACK_IMPORTED_MODULE_6__store__["a" /* default */] },
-      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__browser_components_app__["a" /* default */], null)
+      { store: Object(__WEBPACK_IMPORTED_MODULE_4_mobx__["extendObservable"])(__WEBPACK_IMPORTED_MODULE_7__store__["a" /* default */], { age: 900 }) },
+      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__browser_components_app__["a" /* default */], null)
     )),
-    title: 'Hello World from the server'
+    title: 'Hello World from the server',
+    state: { age: 900 }
   }));
 });
 
@@ -123,19 +133,19 @@ server.listen(process.env.PORT || 8888, () => {
 });
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = require("express");
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom/server");
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -144,29 +154,17 @@ module.exports = require("react-dom/server");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mobx_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mobx_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_mobx_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mobx__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mobx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_mobx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools__);
 var _dec, _class;
 
 
 
-
-
-
-
-Object(__WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools__["configureDevtool"])({
-  logEnabled: true,
-  updatesEnabled: true
-});
 
 let Home = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_mobx_react__["inject"])('store'), _dec(_class = Object(__WEBPACK_IMPORTED_MODULE_1_mobx_react__["observer"])(_class = class Home extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   constructor(...args) {
     var _temp;
 
     return _temp = super(...args), this.addToStore = () => {
-      this.props.store.setAge(11);
+      this.props.store.setAge(Math.floor(Math.random() * 90 + 10));
     }, _temp;
   }
 
@@ -189,25 +187,20 @@ let Home = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_mobx_react__["inject"])('s
           { onClick: this.addToStore },
           'Change Age.'
         )
-      ),
-      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools___default.a, null)
+      )
     );
   }
 }) || _class) || _class);
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("mobx-react-devtools");
-
-/***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony default export */ __webpack_exports__["a"] = (({ body, title }) => `
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+/* harmony default export */ __webpack_exports__["a"] = (({ body, title, state }) => `
     <!DOCTYPE html>
     <html>
       <head>
@@ -217,7 +210,9 @@ module.exports = require("mobx-react-devtools");
       <body>
         <div id="root">${body}</div>
       </body>
-
+      <script>
+        window.__INITIAL_STATE__ = ${JSON.stringify(_extends({}, state))};
+      </script>
       <script src="bundle.js"></script>
     </html>
   `);
@@ -227,7 +222,7 @@ module.exports = require("mobx-react-devtools");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mobx__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mobx__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mobx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mobx__);
 
 
@@ -246,12 +241,6 @@ const state = Object(__WEBPACK_IMPORTED_MODULE_0_mobx__["observable"])({
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (state);
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports) {
-
-module.exports = require("mobx");
 
 /***/ })
 /******/ ]);

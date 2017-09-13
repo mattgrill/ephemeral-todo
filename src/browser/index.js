@@ -1,9 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'mobx-react';
+import { extendObservable } from 'mobx';
 
 import App from './components/app';
 
-import AppState from '../store';
+import defaultState from '../store';
 
-render(<Provider store={AppState}><App /></Provider>, document.getElementById('root'));
+render(
+  <Provider
+    store={extendObservable(defaultState, window.__INITIAL_STATE__)}
+  >
+    <App />
+  </Provider>, document.getElementById('root'));
