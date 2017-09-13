@@ -91,8 +91,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mobx_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mobx_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mobx_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__browser_components_app__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__template__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__template__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__store__ = __webpack_require__(8);
 
 
 
@@ -111,14 +111,16 @@ server.get('/', (req, res) => {
   res.send(Object(__WEBPACK_IMPORTED_MODULE_5__template__["a" /* default */])({
     body: Object(__WEBPACK_IMPORTED_MODULE_2_react_dom_server__["renderToString"])(__WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_3_mobx_react__["Provider"],
-      { store: new __WEBPACK_IMPORTED_MODULE_6__store__["a" /* default */]() },
+      { store: __WEBPACK_IMPORTED_MODULE_6__store__["a" /* default */] },
       __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4__browser_components_app__["a" /* default */], null)
     )),
     title: 'Hello World from the server'
   }));
 });
 
-server.listen(process.env.PORT || 8888);
+server.listen(process.env.PORT || 8888, () => {
+  console.log(`LISTENING ON ${process.env.PORT || 8888}`);
+});
 
 /***/ }),
 /* 3 */
@@ -137,33 +139,47 @@ module.exports = require("react-dom/server");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Home; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mobx_react__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mobx_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_mobx_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mobx__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_mobx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_mobx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools__);
 var _dec, _class;
 
 
 
+
+
+
+
+Object(__WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools__["configureDevtool"])({
+  logEnabled: true,
+  updatesEnabled: true
+});
 
 let Home = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_mobx_react__["inject"])('store'), _dec(_class = Object(__WEBPACK_IMPORTED_MODULE_1_mobx_react__["observer"])(_class = class Home extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
   constructor(...args) {
     var _temp;
 
     return _temp = super(...args), this.addToStore = () => {
-      this.props.store.setData('a', '0123456789');
+      this.props.store.setAge(11);
     }, _temp;
   }
 
   render() {
-    console.log(this.props);
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'section',
       null,
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'h1',
         null,
-        this.props.store.items.a
+        this.props.store.name,
+        ' - ',
+        this.props.store.age
       ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'p',
@@ -171,18 +187,23 @@ let Home = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_mobx_react__["inject"])('s
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
           { onClick: this.addToStore },
-          'Change Me!'
+          'Change Age.'
         )
-      )
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_mobx_react_devtools___default.a, null)
     );
   }
 }) || _class) || _class);
 
 
-/* harmony default export */ __webpack_exports__["a"] = (Home);
-
 /***/ }),
 /* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("mobx-react-devtools");
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -202,64 +223,32 @@ let Home = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_mobx_react__["inject"])('s
   `);
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppState; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mobx__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mobx__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mobx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mobx__);
-var _desc, _value, _class;
-
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) {
-  var desc = {};
-  Object['ke' + 'ys'](descriptor).forEach(function (key) {
-    desc[key] = descriptor[key];
-  });
-  desc.enumerable = !!desc.enumerable;
-  desc.configurable = !!desc.configurable;
-
-  if ('value' in desc || desc.initializer) {
-    desc.writable = true;
-  }
-
-  desc = decorators.slice().reverse().reduce(function (desc, decorator) {
-    return decorator(target, property, desc) || desc;
-  }, desc);
-
-  if (context && desc.initializer !== void 0) {
-    desc.value = desc.initializer ? desc.initializer.call(context) : void 0;
-    desc.initializer = undefined;
-  }
-
-  if (desc.initializer === void 0) {
-    Object['define' + 'Property'](target, property, desc);
-    desc = null;
-  }
-
-  return desc;
-}
 
 
+const state = Object(__WEBPACK_IMPORTED_MODULE_0_mobx__["observable"])({
+  name: 'John',
+  age: 42,
+  showAge: false,
 
-let AppState = (_class = class AppState {
+  get labelText() {
+    return this.showAge ? `${this.name} (age: ${this.age})` : this.name;
+  },
 
-  constructor() {
-    this.items = { a: 'bbbb' };
-  }
+  setAge: Object(__WEBPACK_IMPORTED_MODULE_0_mobx__["action"])(function setAge(age) {
+    this.age = age;
+  })
+});
 
-  setData(key, data) {
-    this.items[key] = data;
-  }
-
-  clearItems() {
-    this.items = {};
-  }
-}, (_applyDecoratedDescriptor(_class.prototype, 'setData', [__WEBPACK_IMPORTED_MODULE_0_mobx__["action"]], Object.getOwnPropertyDescriptor(_class.prototype, 'setData'), _class.prototype), _applyDecoratedDescriptor(_class.prototype, 'clearItems', [__WEBPACK_IMPORTED_MODULE_0_mobx__["action"]], Object.getOwnPropertyDescriptor(_class.prototype, 'clearItems'), _class.prototype)), _class);
-
+/* harmony default export */ __webpack_exports__["a"] = (state);
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("mobx");

@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { isObservableObject } from 'mobx';
+
+import DevTool, { configureDevtool } from 'mobx-react-devtools';
+
+configureDevtool({
+  logEnabled: true,
+  updatesEnabled: true,
+});
 
 @inject('store')
 @observer
-class Home extends Component {
+export default class Home extends Component {
   addToStore = () => {
-    this.props.store.setData('a', '0123456789');
+    this.props.store.setAge(11);
   };
   render() {
-    console.log(this.props);
     return (
       <section>
-        <h1>{this.props.store.items.a}</h1>
-        <p><button onClick={this.addToStore}>Change Me!</button></p>
+        <h1>{this.props.store.name} - {this.props.store.age}</h1>
+        <p><button onClick={this.addToStore}>Change Age.</button></p>
+        <DevTool />
       </section>
     );
   }
 }
-
-export default Home;

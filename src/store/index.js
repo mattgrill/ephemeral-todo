@@ -1,17 +1,17 @@
 import { observable, action } from 'mobx';
 
-export default class AppState {
-  @observable items;
+const state = observable({
+  name: 'John',
+  age: 42,
+  showAge: false,
 
-  constructor() {
-    this.items = { a: 'bbbb' };
-  }
+  get labelText() {
+    return this.showAge ? `${this.name} (age: ${this.age})` : this.name;
+  },
 
-  @action setData(key, data) {
-    this.items[key] = data;
-  }
+  setAge: action(function setAge(age) {
+    this.age = age;
+  }),
+});
 
-  @action clearItems() {
-    this.items = {};
-  }
-}
+export default state;

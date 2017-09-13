@@ -6,4 +6,4 @@ import App from './components/app';
 
 import AppState from '../store';
 
-render(<Provider store={new AppState()}><App /></Provider>, document.getElementById('root'));
+render(<Provider store={AppState}><App /></Provider>, document.getElementById('root'));

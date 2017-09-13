@@ -14,9 +14,11 @@ server.use(express.static('public'));
 
 server.get('/', (req, res) => {
   res.send(template({
-    body: renderToString(<Provider store={new AppState()}><App /></Provider>),
+    body: renderToString(<Provider store={AppState}><App /></Provider>),
     title: 'Hello World from the server',
   }));
 });
 
-server.listen(process.env.PORT || 8888);
+server.listen(process.env.PORT || 8888, () => {
+  console.log(`LISTENING ON ${process.env.PORT || 8888}`)
+});
