@@ -4,14 +4,14 @@ import { inject, observer } from 'mobx-react';
 @inject('store')
 @observer
 class Home extends Component {
-  store = this.props.store;
   addToStore = () => {
-    this.store.setData('a', '0123456789');
+    this.props.store.setData('a', '0123456789');
   };
   render() {
+    console.log(this.props);
     return (
       <section>
-        <h1>{this.store.items.a}</h1>
+        <h1>{this.props.store.items.a}</h1>
         <p><button onClick={this.addToStore}>Change Me!</button></p>
       </section>
     );

@@ -4,7 +4,7 @@ export default class AppState {
   @observable items;
 
   constructor() {
-    this.items = { a: 'aaaa' };
+    this.items = { a: 'bbbb' };
   }
 
   @action setData(key, data) {

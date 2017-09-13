@@ -26562,21 +26562,22 @@ var Home = (_dec = Object(__WEBPACK_IMPORTED_MODULE_1_mobx_react__["inject"])('s
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Home.__proto__ || Object.getPrototypeOf(Home)).call.apply(_ref, [this].concat(args))), _this), _this.store = _this.props.store, _this.addToStore = function () {
-      _this.store.setData('a', '0123456789');
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Home.__proto__ || Object.getPrototypeOf(Home)).call.apply(_ref, [this].concat(args))), _this), _this.addToStore = function () {
+      _this.props.store.setData('a', '0123456789');
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Home, [{
     key: 'render',
     value: function render() {
+      console.log(this.props);
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'section',
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'h1',
           null,
-          this.store.items.a
+          this.props.store.items.a
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'p',
@@ -26645,7 +26646,7 @@ var AppState = (_class = function () {
   function AppState() {
     _classCallCheck(this, AppState);
 
-    this.items = { a: 'aaaa' };
+    this.items = { a: 'bbbb' };
   }
 
   _createClass(AppState, [{
